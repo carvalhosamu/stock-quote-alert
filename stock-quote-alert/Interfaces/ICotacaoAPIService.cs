@@ -9,6 +9,6 @@ namespace stock_quote_alert.Interfaces
 {
     public interface ICotacaoAPIService
     {
-        public Task<AcaoViewModel> GetActions(string quoteName);
+        public Task<AcaoModel> GetActions(string quoteName);
     }
 }

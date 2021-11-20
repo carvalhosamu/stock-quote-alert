@@ -10,7 +10,7 @@ namespace stock_quote_alert.Models
     /// <summary>
     ///  Classe que representa o retorno vindo da API do Yahoo 
     /// </summary>
-    public class AcaoViewModel
+    public class AcaoModel
     {
         [JsonProperty("quoteResponse")]
         public QuoteResponse QuoteResponse { get; set; }

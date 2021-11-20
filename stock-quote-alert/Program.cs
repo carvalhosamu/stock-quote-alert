@@ -17,6 +17,7 @@ using System.Net;
 using stock_quote_alert.Repositorios;
 using stock_quote_alert.Contexto;
 using Microsoft.EntityFrameworkCore;
+using stock_quote_alert.Models.Configuracoes;
 
 namespace stock_quote_alert
 {
@@ -43,7 +44,7 @@ namespace stock_quote_alert
                 {
                     #region Injeção das configurações 
                     services.Configure<ApiConfiguration>(hostContext.Configuration.GetSection("ApiConfiguration"));
-                    services.Configure<EmailViewModel>(hostContext.Configuration.GetSection("ConfiguracaoEmail"));
+                    services.Configure<SMTPConfiguracao>(hostContext.Configuration.GetSection("ConfiguracaoEmail"));
                     services.Configure<EmailDestino>(hostContext.Configuration.GetSection("EmailDestino"));
                     services.Configure<ConfiguracaoServico>(hostContext.Configuration.GetSection("ConfiguracaoServico"));
                     #endregion
@@ -63,7 +64,7 @@ namespace stock_quote_alert
 
                     #region Configuracao Email
 
-                    var emailSettings = hostContext.Configuration.GetSection("ConfiguracaoEmail").Get<EmailViewModel>();
+                    var emailSettings = hostContext.Configuration.GetSection("ConfiguracaoEmail").Get<SMTPConfiguracao>();
 
                     services.AddFluentEmail(emailSettings.EmailEnvio, emailSettings.NomeEnvio)
                             .AddRazorRenderer();
@@ -82,13 +83,13 @@ namespace stock_quote_alert
 
                     #region Argumentos
 
-                    var argsViewModel = new ArgsViewModel();
+                    var argsViewModel = new ArgsModel();
 
                     try
                     {
                         if (args.Length >= 3)
                         {
-                            argsViewModel = new ArgsViewModel
+                            argsViewModel = new ArgsModel
                             {
                                 Acao = args[0],
                                 PrecoMinimo = double.Parse(args[1], CultureInfo.InvariantCulture),
@@ -97,7 +98,7 @@ namespace stock_quote_alert
                         }
                         else
                         {
-                            argsViewModel = new ArgsViewModel
+                            argsViewModel = new ArgsModel
                             {
                                 Acao = hostContext.Configuration.GetValue<string>("NomeAcao"),
                                 PrecoMinimo = hostContext.Configuration.GetValue<double>("PrecoMinimo"),
@@ -110,7 +111,7 @@ namespace stock_quote_alert
                     catch (Exception)
                     {
 
-                       argsViewModel = new ArgsViewModel
+                       argsViewModel = new ArgsModel
                         {
                             Acao = hostContext.Configuration.GetValue<string>("NomeAcao"),
                             PrecoMinimo = hostContext.Configuration.GetValue<double>("PrecoMinimo"),

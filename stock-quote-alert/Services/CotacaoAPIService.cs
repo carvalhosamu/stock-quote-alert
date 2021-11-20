@@ -5,6 +5,7 @@ using RestSharp;
 using RestSharp.Serializers.NewtonsoftJson;
 using stock_quote_alert.Interfaces;
 using stock_quote_alert.Models;
+using stock_quote_alert.Models.Configuracoes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,17 +33,17 @@ namespace stock_quote_alert.Services
             return request;
         }
 
-        public async Task<AcaoViewModel> GetActions(string actionName)
+        public async Task<AcaoModel> GetActions(string actionName)
         {
             try
             {
-                var client = new RestClient($"https://yfapi.net/v6/finance/quote?region=US&lang=en&symbols={actionName}.SA")
+                var client = new RestClient($"{_apiConfiguration.ApiUrl}/quote?region=US&lang=en&symbols={actionName}.SA")
                                             .UseNewtonsoftJson();
                 
                 var request = new RestRequest(Method.GET);
                 request = ConfiguraHeaders(request);
 
-                IRestResponse<AcaoViewModel> response = await client.ExecuteAsync<AcaoViewModel>(request);
+                IRestResponse<AcaoModel> response = await client.ExecuteAsync<AcaoModel>(request);
 
                 return response.Data;
 

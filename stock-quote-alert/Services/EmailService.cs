@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using stock_quote_alert.Interfaces;
 using stock_quote_alert.Models;
+using stock_quote_alert.Models.Configuracoes;
 using stock_quote_alert.Models.Tabelas;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,9 @@ namespace stock_quote_alert.Services
     {
         private readonly IFluentEmail _fluentEmail;
         private readonly EmailDestino _emailDestino;
-        private readonly ArgsViewModel _args;
+        private readonly ArgsModel _args;
 
-        public EmailService(IFluentEmail fluentEmail, IOptions<EmailDestino> emailDestino, ArgsViewModel args)
+        public EmailService(IFluentEmail fluentEmail, IOptions<EmailDestino> emailDestino, ArgsModel args)
         {
             _fluentEmail = fluentEmail;
             _emailDestino = emailDestino.Value;
@@ -25,9 +26,9 @@ namespace stock_quote_alert.Services
 
         }
 
-        private EmailResult CriaEmail(Consultas consulta)
+        private EmailModel CriaEmail(Consultas consulta)
         {
-            return new EmailResult {
+            return new EmailModel {
                 Nome = _emailDestino.Nome,
                 MinOuMax = consulta.ValorApurado <= _args.PrecoMinimo ? "mínimo" : "máximo",
                 NomeAcao = consulta.NomeAcao,

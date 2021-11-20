@@ -4,12 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace stock_quote_alert.Models
+namespace stock_quote_alert.Models.Configuracoes
 {
     public class ConfiguracaoServico
     {
-        public string TipoDelay { get; set; }
-        public long DelayPooling { get; set; }
+        public int DelayPooling { get; set; }
         public double ValorDiferencaEnvio { get; set; }
         public string TipoEnvio { get; set; }
     }

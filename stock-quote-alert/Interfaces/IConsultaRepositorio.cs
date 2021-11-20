@@ -10,7 +10,7 @@ namespace stock_quote_alert.Interfaces
 {
     public interface IConsultaRepositorio
     {
-        Task<Consultas> AddAcao(AcaoViewModel acao);
+        Task<Consultas> AddAcao(AcaoModel acao);
         Task DeletarRegistros();
 
     }

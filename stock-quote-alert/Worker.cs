@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using stock_quote_alert.Contexto;
 using stock_quote_alert.Interfaces;
 using stock_quote_alert.Models;
+using stock_quote_alert.Models.Configuracoes;
 using stock_quote_alert.Services;
 using System;
 using System.Collections.Generic;
@@ -21,13 +22,15 @@ namespace stock_quote_alert
         private readonly IAcaoService _acaoService;
         private readonly IEmailRepositorio _emailRepository;
         private readonly IConsultaRepositorio _consultaRepository;
+        private readonly ConfiguracaoServico _configuracao;
 
 
         public Worker(ILogger<Worker> logger,
                       IAcaoService acaoService,
                       IHostApplicationLifetime lifetime,
                       IEmailRepositorio email,
-                      IConsultaRepositorio consultaRepository
+                      IConsultaRepositorio consultaRepository,
+                      IOptions<ConfiguracaoServico> configuracao
                       )
         {
            
@@ -36,6 +39,7 @@ namespace stock_quote_alert
             _acaoService = acaoService;
             _emailRepository = email;
             _consultaRepository = consultaRepository;
+            _configuracao = configuracao.Value;
 
         }
 
@@ -61,7 +65,7 @@ namespace stock_quote_alert
                     _lifetime.StopApplication();
                 }
 
-                await Task.Delay(5000, stoppingToken);
+                await Task.Delay(_configuracao.DelayPooling, stoppingToken);
             }
         }
     }

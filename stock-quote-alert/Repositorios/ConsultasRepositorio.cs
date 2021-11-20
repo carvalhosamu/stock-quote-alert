@@ -2,6 +2,7 @@
 using stock_quote_alert.Contexto;
 using stock_quote_alert.Interfaces;
 using stock_quote_alert.Models;
+using stock_quote_alert.Models.Configuracoes;
 using stock_quote_alert.Models.Tabelas;
 using System;
 using System.Collections.Generic;
@@ -13,17 +14,17 @@ namespace stock_quote_alert.Repositorios
 {
     public class ConsultasRepositorio : IConsultaRepositorio
     {
-        public readonly ArgsViewModel _args;
+        public readonly ArgsModel _args;
         private readonly IServiceScopeFactory _serviceScopeFactory;
 
-        public ConsultasRepositorio( ArgsViewModel args, IServiceScopeFactory serviceScopeFactory)
+        public ConsultasRepositorio( ArgsModel args, IServiceScopeFactory serviceScopeFactory)
         {
             _args = args;
             _serviceScopeFactory = serviceScopeFactory;
         }
 
 
-        public async Task<Consultas> AddAcao(AcaoViewModel acao)
+        public async Task<Consultas> AddAcao(AcaoModel acao)
         {
             try
             {
@@ -34,7 +35,7 @@ namespace stock_quote_alert.Repositorios
                     var dbContext = scope.ServiceProvider.GetRequiredService<AcaoContext>();
                     Consultas consulta;
 
-                    if (acao != null && acao.QuoteResponse.Result != null && acao.QuoteResponse.Result.Length > 0)
+                    if (acao != null && acao.QuoteResponse != null && acao.QuoteResponse.Result.Length > 0)
                     {
                         consulta = new Consultas
                         {

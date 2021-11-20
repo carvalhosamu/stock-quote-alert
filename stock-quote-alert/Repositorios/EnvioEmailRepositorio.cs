@@ -4,6 +4,7 @@ using Microsoft.Extensions.Options;
 using stock_quote_alert.Contexto;
 using stock_quote_alert.Interfaces;
 using stock_quote_alert.Models;
+using stock_quote_alert.Models.Configuracoes;
 using stock_quote_alert.Models.Tabelas;
 using System;
 using System.Collections.Generic;
@@ -17,9 +18,9 @@ namespace stock_quote_alert.Repositorios
     {
         private readonly IServiceScopeFactory _serviceScopeFactory;
         private readonly IOptions<EmailDestino> _emailDestino;
-        private readonly ArgsViewModel _args;
+        private readonly ArgsModel _args;
 
-        public EnvioEmailRepositorio( IServiceScopeFactory serviceScopeFactory, IOptions<EmailDestino> emailDestino, ArgsViewModel args)
+        public EnvioEmailRepositorio( IServiceScopeFactory serviceScopeFactory, IOptions<EmailDestino> emailDestino, ArgsModel args)
         {
             _serviceScopeFactory = serviceScopeFactory;
             _emailDestino = emailDestino;

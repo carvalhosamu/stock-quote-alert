@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace stock_quote_alert.Models
+namespace stock_quote_alert.Models.Configuracoes
 {
-    public class EmailViewModel
+    public class SMTPConfiguracao
     {
         public string EmailEnvio { get; set; }
         public string NomeEnvio { get; set; }

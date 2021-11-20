@@ -7,6 +7,10 @@
     <PreserveCompilationContext>true</PreserveCompilationContext>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+
   <ItemGroup>
     <PackageReference Include="FluentEmail.Core" Version="3.0.0" />
     <PackageReference Include="FluentEmail.Razor" Version="3.0.0" />

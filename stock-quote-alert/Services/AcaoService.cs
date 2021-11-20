@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Options;
 using stock_quote_alert.Interfaces;
 using stock_quote_alert.Models;
+using stock_quote_alert.Models.Configuracoes;
 using stock_quote_alert.Models.Tabelas;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace stock_quote_alert.Services
         private readonly IEmailService _emailService;
         private readonly IConsultaRepositorio _consultaRepositorio;
         private readonly IEmailRepositorio _emailRepositorio;
-        private readonly ArgsViewModel _args;
+        private readonly ArgsModel _args;
         private ConfiguracaoServico _config;
         private readonly ILogger<AcaoService> _logger;
         private readonly IConsultaRepositorio _repositorio;
@@ -35,7 +36,7 @@ namespace stock_quote_alert.Services
         public AcaoService(ICotacaoAPIService cotacaoApi,
                            IEmailService emailService,
                            IConsultaRepositorio consultaRepositorio,
-                           ArgsViewModel args,
+                           ArgsModel args,
                            IOptions<ConfiguracaoServico> options,
                            ILogger<AcaoService> logger,
                            IConsultaRepositorio repositorio,
@@ -81,8 +82,8 @@ namespace stock_quote_alert.Services
                     return verificaEnvioDeEmail(acao);
                 }
 
-                else if (acao.ValorApurado > result.Consulta.ValorApurado + diferenca ||
-                         acao.ValorApurado < result.Consulta.ValorApurado - diferenca )
+                else if (verificaEnvioDeEmail(acao) &&
+                        (acao.ValorApurado > result.Consulta.ValorApurado + diferenca || acao.ValorApurado < result.Consulta.ValorApurado - diferenca) )
                 {
                     return true;
                 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace stock_quote_alert.Models
+namespace stock_quote_alert.Models.Configuracoes
 {
-    public class ArgsViewModel
+    public class ArgsModel
     {
         public double PrecoMinimo { get; set; }
         public double PrecoMaximo { get; set; }
