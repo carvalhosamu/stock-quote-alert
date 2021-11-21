@@ -26,4 +26,9 @@
     <PackageReference Include="RestSharp" Version="106.13.0" />
     <PackageReference Include="RestSharp.Serializers.NewtonsoftJson" Version="106.13.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\stock-quote-alert-core\stock-quote-alert-core.csproj" />
+    <ProjectReference Include="..\stock-quote-alert-repositorio\stock-quote-alert-repositorio.csproj" />
+  </ItemGroup>
 </Project>

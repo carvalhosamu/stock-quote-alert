@@ -1,11 +1,8 @@
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using stock_quote_alert.Contexto;
-using stock_quote_alert.Interfaces;
-using stock_quote_alert.Models;
-using stock_quote_alert.Models.Configuracoes;
-using stock_quote_alert.Services;
+using stock_quote_alert_core.Interfaces;
+using stock_quote_alert_core.Models.Configuracoes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
