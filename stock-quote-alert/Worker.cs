@@ -19,14 +19,14 @@ namespace stock_quote_alert
 
         private readonly IHostApplicationLifetime _lifetime;
         private readonly ILogger<Worker> _logger;
-        private readonly IAcaoService _acaoService;
+        private readonly IExecucao _execucao;
         private readonly IEmailRepositorio _emailRepository;
         private readonly IConsultaRepositorio _consultaRepository;
         private readonly ConfiguracaoServico _configuracao;
 
 
         public Worker(ILogger<Worker> logger,
-                      IAcaoService acaoService,
+                      IExecucao acaoService,
                       IHostApplicationLifetime lifetime,
                       IEmailRepositorio email,
                       IConsultaRepositorio consultaRepository,
@@ -36,7 +36,7 @@ namespace stock_quote_alert
            
             _lifetime = lifetime;
             _logger = logger;
-            _acaoService = acaoService;
+            _execucao = acaoService;
             _emailRepository = email;
             _consultaRepository = consultaRepository;
             _configuracao = configuracao.Value;
@@ -48,6 +48,7 @@ namespace stock_quote_alert
             await _emailRepository.DeletaRegistros();
             await _consultaRepository.DeletarRegistros();
             await base.StartAsync(cancellationToken);
+
             
         }
 
@@ -57,7 +58,7 @@ namespace stock_quote_alert
             {
                 try
                 {
-                    await _acaoService.VerificaAcao();
+                    await _execucao.Exececutar();
                 }
                 catch (Exception ex)
                 {

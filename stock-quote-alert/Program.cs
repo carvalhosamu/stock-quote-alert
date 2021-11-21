@@ -54,9 +54,15 @@ namespace stock_quote_alert
                         options.UseSqlite(hostContext.Configuration.GetValue<string>("connectionString")));
 
                     #region Injeção de dependência 
+
+                    string teste = $"stock_quote_alert.Services.Executa{hostContext.Configuration.GetSection("ConfiguracaoServico").Get<ConfiguracaoServico>().TipoEnvio}";
+
+                    Type elementType = Type.GetType(teste);
+
                     services.AddSingleton<ICotacaoAPIService, CotacaoAPIService>();
                     services.AddSingleton<IEmailService, EmailService>();
-                    services.AddSingleton<IAcaoService, AcaoService>();
+
+                    services.AddSingleton(typeof(IExecucao), elementType);
 
                     services.AddSingleton<IConsultaRepositorio, ConsultasRepositorio>();
                     services.AddSingleton<IEmailRepositorio, EnvioEmailRepositorio>();
